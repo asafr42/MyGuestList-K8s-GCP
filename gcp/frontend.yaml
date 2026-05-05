@@ -21,7 +21,7 @@ spec:
         fsGroup: 101
       containers:
       - name: frontend
-        image: europe-west1-docker.pkg.dev/myguestlist-asaf42/myguestlist-frontend/app:latest
+        image: europe-west1-docker.pkg.dev/myguestlist-asaf42/myguestlist-frontend/app:34b4052bee45837320dd1d9f52c7e49ec5f558dd
         ports:
         - containerPort: 80
         readinessProbe:
