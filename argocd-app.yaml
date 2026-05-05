@@ -9,6 +9,8 @@ spec:
     repoURL: https://github.com/asafr42/MyGuestList-K8s-GCP
     targetRevision: main
     path: gcp/
+    directory:
+      exclude: secrets.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: app
