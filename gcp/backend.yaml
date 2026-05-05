@@ -21,7 +21,7 @@ spec:
         fsGroup: 1000
       containers:
       - name: backend
-        image: europe-west1-docker.pkg.dev/myguestlist-asaf42/myguestlist-backend/app:latest
+        image: europe-west1-docker.pkg.dev/myguestlist-asaf42/myguestlist-backend/app:a6fdcf74e88da8e12d62998c2b784cae0de8e00c
         ports:
         - name: http-api
           containerPort: 5000
