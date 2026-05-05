@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: myguestlist
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/asafr42/MyGuestList-K8s-GCP
+    targetRevision: main
+    path: gcp/
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: app
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

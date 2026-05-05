@@ -1,0 +1,35 @@
+name: Update Image Tag
+
+on:
+  workflow_dispatch:
+    inputs:
+      service:
+        description: "Service to update (backend or frontend)"
+        required: true
+        type: choice
+        options: [backend, frontend]
+      image_tag:
+        description: "New image tag (commit SHA)"
+        required: true
+
+jobs:
+  update-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update image tag in manifest
+        run: |
+          PROJECT_ID="${{ vars.GCP_PROJECT_ID }}"
+          SERVICE="${{ inputs.service }}"
+          TAG="${{ inputs.image_tag }}"
+          FILE="manifests/${SERVICE}.yaml"
+
+          sed -i "s|europe-west1-docker.pkg.dev/${PROJECT_ID}/myguestlist-${SERVICE}/app:.*|europe-west1-docker.pkg.dev/${PROJECT_ID}/myguestlist-${SERVICE}/app:${TAG}|" "$FILE"
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -am "ci: update ${{ inputs.service }} image to ${{ inputs.image_tag }}"
+          git push
